@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zahnkostencheck | CreatorFlow AI</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f8fd;
+      --card: #ffffff;
+      --text: #10243d;
+      --muted: #61758e;
+      --line: #d6e0ec;
+      --brand: #0f62fe;
+      --brand2: #7c3aed;
+      --danger: #b91c1c;
+      --ok: #15803d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(124,58,237,0.10), transparent 28%),
+        linear-gradient(180deg, #f4f8fd 0%, #ffffff 100%);
+      color: var(--text);
+    }
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 38px 20px 54px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 20px 44px rgba(16,36,61,0.08);
+    }
+    h1, h2 { margin: 0 0 12px; }
+    p, li, label {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .lead {
+      font-size: 1.04rem;
+      margin-bottom: 18px;
+    }
+    .alert {
+      border: 1px solid rgba(185,28,28,0.16);
+      background: rgba(185,28,28,0.05);
+      color: var(--danger);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin: 18px 0 22px;
+      font-weight: 600;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .field {
+      margin-bottom: 14px;
+    }
+    .field.full {
+      grid-column: 1 / -1;
+    }
+    input, select, textarea {
+      width: 100%;
+      margin-top: 6px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font: inherit;
+      color: var(--text);
+    }
+    textarea { min-height: 128px; resize: vertical; }
+    .check {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin: 10px 0;
+    }
+    .check input {
+      width: 18px;
+      height: 18px;
+      margin-top: 3px;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    button, a.button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 0;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    button.primary {
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      color: #fff;
+      box-shadow: 0 14px 28px rgba(15,98,254,0.20);
+    }
+    a.button.secondary {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+    }
+    .hint {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .ok {
+      color: var(--ok);
+      font-weight: 700;
+    }
+    .error {
+      color: var(--danger);
+      font-weight: 700;
+      display: none;
+      margin-top: 8px;
+    }
+    @media (max-width: 720px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="card">
+      <h1>Zahnkostencheck anfragen</h1>
+      <p class="lead">
+        Fuer Zahnersatz, Implantate oder Tarifpruefung. Dieser Live-Pfad ist sichtbar,
+        aber die Uebergabe bleibt weiter im kontrollierten Freigabemodus.
+      </p>
+
+      <div class="alert">
+        Noch kein automatischer Lead-Transfer: Das Formular prueft Eingaben und fuehrt in einen
+        sicheren Danke-/Freigabeschritt. Kein CRM-Liveinsert, keine Auto-Nachrichten.
+      </div>
+
+      <form id="leadForm" action="./kontakt-danke.html" method="get">
+        <div class="grid">
+          <div class="field">
+            <label for="first_name">Vorname</label>
+            <input id="first_name" name="first_name" required>
+          </div>
+          <div class="field">
+            <label for="contact_channel">Kontaktkanal</label>
+            <select id="contact_channel" name="contact_channel" required>
+              <option value="">Bitte waehlen</option>
+              <option value="telefon">Telefon</option>
+              <option value="email">E-Mail</option>
+              <option value="whatsapp_optin">WhatsApp Opt-in</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="contact_value">Telefon oder E-Mail</label>
+            <input id="contact_value" name="contact_value" required>
+          </div>
+          <div class="field">
+            <label for="callback_window">Rueckrufzeit</label>
+            <select id="callback_window" name="callback_window">
+              <option value="">Optional</option>
+              <option value="vormittag">Vormittag</option>
+              <option value="mittag">Mittag</option>
+              <option value="nachmittag">Nachmittag</option>
+              <option value="abend">Abend</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="needs_summary">Worum geht es?</label>
+            <textarea id="needs_summary" name="needs_summary" placeholder="Zum Beispiel: Implantatkosten, fehlende Zaehne, bestehende Zahnversicherung, Preisfrage ..." required></textarea>
+          </div>
+        </div>
+
+        <div class="check">
+          <input id="consent_capture" name="consent_capture" type="checkbox" value="yes" required>
+          <label for="consent_capture">Ich willige ein, dass meine Angaben zur Kontaktaufnahme und Angebotsvorbereitung verwendet werden.</label>
+        </div>
+        <div class="check">
+          <input id="privacy_acknowledged" name="privacy_acknowledged" type="checkbox" value="yes" required>
+          <label for="privacy_acknowledged">Ich habe die <a href="./privacy.html">Datenschutzrichtlinie</a> gelesen.</label>
+        </div>
+
+        <div id="error" class="error">Bitte Consent und Datenschutz bestaetigen.</div>
+        <div class="actions">
+          <button class="primary" type="submit">Anfrage sicher weiterfuehren</button>
+          <a class="button secondary" href="./index.html">Zur Startseite</a>
+        </div>
+      </form>
+
+      <p class="hint">
+        <span class="ok">Sicherheitsgrenze aktiv:</span> Keine Auto-DMs, kein Auto-Posting, kein unkontrolliertes Tracking.
+      </p>
+    </div>
+  </main>
+  <script>
+    const form = document.getElementById('leadForm');
+    const error = document.getElementById('error');
+    form.addEventListener('submit', function (event) {
+      const consent = document.getElementById('consent_capture').checked;
+      const privacy = document.getElementById('privacy_acknowledged').checked;
+      if (!consent || !privacy) {
+        event.preventDefault();
+        error.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
