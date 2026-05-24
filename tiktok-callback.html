@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TikTok OAuth Callback</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #132238;
+      --muted: #5f6f85;
+      --ok: #117a37;
+      --warn: #9f5a00;
+      --err: #b42318;
+      --line: #d6deea;
+      --accent: #0f62fe;
+    }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: linear-gradient(180deg, #f5f7fb 0%, #ebf1fa 100%);
+      color: var(--text);
+    }
+    main {
+      max-width: 820px;
+      margin: 40px auto;
+      padding: 0 20px 40px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 18px 40px rgba(19, 34, 56, 0.08);
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+    p {
+      margin: 0 0 14px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .status {
+      display: inline-block;
+      margin: 0 0 18px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 14px;
+      background: #eef4ff;
+      color: var(--accent);
+    }
+    .status.ok { background: #eaf7ee; color: var(--ok); }
+    .status.warn { background: #fff4e8; color: var(--warn); }
+    .status.err { background: #fdecea; color: var(--err); }
+    pre {
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #0f1728;
+      color: #e6edf7;
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 13px;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    a.button {
+      display: inline-block;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      color: white;
+      background: var(--accent);
+    }
+    a.button.secondary {
+      background: #dde7f8;
+      color: var(--text);
+    }
+    ul {
+      color: var(--muted);
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="card">
+      <div id="status" class="status">Warte auf Callback-Daten</div>
+      <h1>TikTok OAuth Callback</h1>
+      <p>
+        Diese Seite nimmt den TikTok OAuth Redirect ueber HTTPS entgegen und leitet den
+        Code kontrolliert an den lokalen Callback oder einen spaeteren Serverpfad weiter.
+      </p>
+      <p id="summary">Die Query-Parameter werden geprueft.</p>
+      <div class="actions" id="actions"></div>
+      <h2>Payload</h2>
+      <pre id="payload">wird geladen...</pre>
+      <h2>Hinweise</h2>
+      <ul>
+        <li>Diese Seite fuehrt keinen Token-Austausch durch.</li>
+        <li>Client-Secret bleibt lokal oder auf einem spaeteren Serverpfad.</li>
+        <li>Publishing und Uploads bleiben bis manueller Freigabe blockiert.</li>
+      </ul>
+    </div>
+  </main>
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const statusEl = document.getElementById("status");
+      const summaryEl = document.getElementById("summary");
+      const payloadEl = document.getElementById("payload");
+      const actionsEl = document.getElementById("actions");
+
+      const code = params.get("code") || "";
+      const state = params.get("state") || "";
+      const error = params.get("error") || params.get("error_description") || "";
+
+      const defaultLocalCallback = "http://127.0.0.1:8765/tiktok/callback";
+      const localCallback = params.get("local_callback") || defaultLocalCallback;
+      const payload = {
+        href: window.location.href,
+        code_present: Boolean(code),
+        state_present: Boolean(state),
+        error: error,
+        local_callback: localCallback
+      };
+
+      function addAction(label, href, secondary) {
+        const link = document.createElement("a");
+        link.className = secondary ? "button secondary" : "button";
+        link.href = href;
+        link.textContent = label;
+        actionsEl.appendChild(link);
+      }
+
+      if (error) {
+        statusEl.className = "status err";
+        statusEl.textContent = "TikTok OAuth Fehler";
+        summaryEl.textContent = error;
+      } else if (code && state) {
+        const relay = new URL(localCallback);
+        relay.searchParams.set("code", code);
+        relay.searchParams.set("state", state);
+        relay.searchParams.set("source", "github_pages_callback");
+        statusEl.className = "status ok";
+        statusEl.textContent = "Code eingegangen";
+        summaryEl.textContent = "TikTok hat code und state geliefert. Weiterleitung an den lokalen Callback ist bereit.";
+        payload.relay_target = relay.toString();
+        addAction("Zum lokalen Callback weiterleiten", relay.toString(), false);
+      } else {
+        statusEl.className = "status warn";
+        statusEl.textContent = "Kein OAuth-Code vorhanden";
+        summaryEl.textContent = "Die Seite wurde ohne code/state aufgerufen. Das ist fuer den echten OAuth-Abschluss nicht ausreichend.";
+      }
+
+      addAction("Aktuelle Seite neu laden", window.location.href, true);
+      payloadEl.textContent = JSON.stringify(payload, null, 2);
+    }());
+  </script>
+</body>
+</html>
