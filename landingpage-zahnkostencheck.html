@@ -3,60 +3,258 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zahnkostencheck | CreatorFlow AI</title>
+  <title>NEXOVA Vorsorgeschutz | Digitale Gesundheits- und Vorsorgeplattform</title>
   <style>
     :root {
-      color-scheme: light;
-      --bg: #f4f8fd;
-      --card: #ffffff;
-      --text: #10243d;
-      --muted: #61758e;
-      --line: #d6e0ec;
-      --brand: #0f62fe;
-      --brand2: #7c3aed;
-      --danger: #b91c1c;
-      --ok: #15803d;
+      color-scheme: dark;
+      --bg: #0b1020;
+      --bg-soft: #121a31;
+      --card: rgba(255,255,255,0.06);
+      --card-strong: rgba(255,255,255,0.09);
+      --line: rgba(255,255,255,0.10);
+      --text: #f5fbff;
+      --muted: #a9bdd0;
+      --cyan: #00d2ff;
+      --cyan-soft: rgba(0,210,255,0.16);
+      --white: #ffffff;
+      --shadow: 0 28px 70px rgba(0, 0, 0, 0.35);
     }
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       margin: 0;
-      font-family: "Segoe UI", system-ui, sans-serif;
-      background:
-        radial-gradient(circle at top right, rgba(124,58,237,0.10), transparent 28%),
-        linear-gradient(180deg, #f4f8fd 0%, #ffffff 100%);
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(0,210,255,0.18), transparent 22%),
+        radial-gradient(circle at top left, rgba(40,120,255,0.12), transparent 24%),
+        linear-gradient(180deg, #08101e 0%, #0b1020 30%, #0e1730 100%);
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
     }
     main {
-      max-width: 760px;
+      width: min(1120px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 38px 20px 54px;
+      padding: 22px 0 56px;
     }
-    .card {
-      background: var(--card);
+    .hero {
+      position: relative;
+      overflow: hidden;
       border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 20px 44px rgba(16,36,61,0.08);
+      border-radius: 32px;
+      padding: 24px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)),
+        linear-gradient(160deg, rgba(0,210,255,0.08), rgba(11,16,32,0.12));
+      box-shadow: var(--shadow);
     }
-    h1, h2 { margin: 0 0 12px; }
-    p, li, label {
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -120px auto;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,210,255,0.18), transparent 68%);
+      pointer-events: none;
+    }
+    .platform-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--white);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      font-weight: 700;
+    }
+    .platform-kicker::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--cyan);
+      box-shadow: 0 0 18px rgba(0,210,255,0.9);
+    }
+    h1 {
+      max-width: 760px;
+      margin: 22px 0 14px;
+      font-size: clamp(2.3rem, 5.6vw, 4.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+    .subheadline {
+      max-width: 700px;
+      margin: 0 0 22px;
       color: var(--muted);
-      line-height: 1.6;
+      font-size: clamp(1rem, 2.5vw, 1.22rem);
+      line-height: 1.65;
     }
-    .lead {
-      font-size: 1.04rem;
-      margin-bottom: 18px;
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 0 0 24px;
     }
-    .alert {
-      border: 1px solid rgba(185,28,28,0.16);
-      background: rgba(185,28,28,0.05);
-      color: var(--danger);
-      border-radius: 16px;
-      padding: 14px 16px;
-      margin: 18px 0 22px;
+    .trust-badge {
+      padding: 11px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.11);
+      color: var(--white);
+      font-size: 14px;
       font-weight: 600;
+      white-space: nowrap;
     }
-    .grid {
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+    .button-primary,
+    .button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 58px;
+      padding: 16px 24px;
+      border-radius: 18px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+    .button-primary {
+      background: linear-gradient(135deg, var(--cyan), #3fd2ff 42%, #62ebff 100%);
+      color: #04111f;
+      box-shadow: 0 20px 40px rgba(0, 210, 255, 0.28);
+    }
+    .button-secondary {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--white);
+    }
+    .button-primary:hover,
+    .button-secondary:hover {
+      transform: translateY(-1px);
+    }
+    .platform-note {
+      margin-top: 22px;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .section {
+      margin-top: 22px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+    .section-title {
+      margin: 0 0 10px;
+      font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+      letter-spacing: -0.03em;
+    }
+    .section-copy {
+      max-width: 760px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.72;
+      font-size: 1rem;
+    }
+    .premium-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+    .premium-card {
+      padding: 22px;
+      min-height: 190px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04)),
+        linear-gradient(140deg, rgba(0,210,255,0.09), rgba(11,16,32,0.18));
+      box-shadow: 0 22px 40px rgba(0,0,0,0.18);
+    }
+    .premium-icon {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+    .premium-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.08rem;
+      letter-spacing: -0.01em;
+    }
+    .premium-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.62;
+      font-size: 0.97rem;
+    }
+    .signal-panel {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+      margin-top: 22px;
+    }
+    .signal-card,
+    .topics-card,
+    .form-card {
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      padding: 22px;
+    }
+    .topics-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .topic-pill {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .assurance-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .assurance-item {
+      padding: 16px 14px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--white);
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 600;
+      min-height: 96px;
+    }
+    form {
+      margin-top: 20px;
+    }
+    .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
@@ -67,154 +265,323 @@
     .field.full {
       grid-column: 1 / -1;
     }
-    input, select, textarea {
-      width: 100%;
-      margin-top: 6px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: #fff;
-      font: inherit;
-      color: var(--text);
+    label {
+      display: block;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
-    textarea { min-height: 128px; resize: vertical; }
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      color: var(--white);
+      padding: 16px 16px;
+      font: inherit;
+      outline: none;
+      transition: border-color 0.18s ease, background 0.18s ease;
+    }
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(212, 225, 239, 0.55);
+    }
+    textarea {
+      min-height: 134px;
+      resize: vertical;
+    }
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(0,210,255,0.72);
+      background: rgba(255,255,255,0.07);
+    }
+    .checks {
+      display: grid;
+      gap: 12px;
+      margin: 18px 0 8px;
+    }
     .check {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       align-items: flex-start;
-      margin: 10px 0;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
     }
     .check input {
       width: 18px;
       height: 18px;
-      margin-top: 3px;
+      margin: 2px 0 0;
+      padding: 0;
+      accent-color: var(--cyan);
+      flex: 0 0 auto;
     }
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 18px;
-    }
-    button, a.button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px 18px;
-      border-radius: 14px;
-      border: 0;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    button.primary {
-      background: linear-gradient(135deg, var(--brand), var(--brand2));
-      color: #fff;
-      box-shadow: 0 14px 28px rgba(15,98,254,0.20);
-    }
-    a.button.secondary {
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--text);
-    }
-    .hint {
-      margin-top: 16px;
+    .check label {
+      margin: 0;
       font-size: 14px;
+      line-height: 1.55;
       color: var(--muted);
-    }
-    .ok {
-      color: var(--ok);
-      font-weight: 700;
+      font-weight: 500;
     }
     .error {
-      color: var(--danger);
-      font-weight: 700;
       display: none;
-      margin-top: 8px;
+      margin: 12px 0 0;
+      color: #ff8a8a;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .footer-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    @media (max-width: 980px) {
+      .premium-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .signal-panel {
+        grid-template-columns: 1fr;
+      }
+      .assurance-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
     @media (max-width: 720px) {
-      .grid { grid-template-columns: 1fr; }
+      main {
+        width: min(100% - 20px, 100%);
+        padding: 10px 0 34px;
+      }
+      .hero,
+      .section {
+        padding: 20px 18px;
+        border-radius: 24px;
+      }
+      h1 {
+        font-size: 2.3rem;
+      }
+      .premium-grid,
+      .topics-list,
+      .form-grid,
+      .assurance-grid {
+        grid-template-columns: 1fr;
+      }
+      .button-primary,
+      .button-secondary {
+        width: 100%;
+      }
+      .trust-row {
+        gap: 10px;
+      }
+      .trust-badge {
+        width: 100%;
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
   <main>
-    <div class="card">
-      <h1>Zahnkostencheck anfragen</h1>
-      <p class="lead">
-        Fuer Zahnersatz, Implantate oder Tarifpruefung. Dieser Live-Pfad ist sichtbar,
-        aber die Uebergabe bleibt weiter im kontrollierten Freigabemodus.
+    <section class="hero">
+      <span class="platform-kicker">Gesundheits- und Vorsorgeplattform</span>
+      <h1>Die meisten Menschen kümmern sich erst um Vorsorge, wenn es bereits teuer geworden ist.</h1>
+      <p class="subheadline">
+        Zahnspangen für Kinder, Implantate, Krankenhauskosten, Gesundheitsschutz und Vorsorge
+        können plötzlich mehrere tausend Euro kosten.
       </p>
-
-      <div class="alert">
-        Noch kein automatischer Lead-Transfer: Das Formular prueft Eingaben und fuehrt in einen
-        sicheren Danke-/Freigabeschritt. Kein CRM-Liveinsert, keine Auto-Nachrichten.
+      <p class="subheadline">
+        NEXOVA Vorsorgeschutz hilft dabei, moderne Lösungen frühzeitig und einfach zu prüfen.
+      </p>
+      <div class="trust-row">
+        <span class="trust-badge">Kostenlos &amp; unverbindlich</span>
+        <span class="trust-badge">Sichere digitale Anfrage</span>
+        <span class="trust-badge">Moderne Vorsorgelösungen</span>
+        <span class="trust-badge">Persönliche Analyse</span>
       </div>
-
-      <form id="leadForm" action="./kontakt-danke.html" method="get">
-        <div class="grid">
-          <div class="field">
-            <label for="first_name">Vorname</label>
-            <input id="first_name" name="first_name" required>
-          </div>
-          <div class="field">
-            <label for="contact_channel">Kontaktkanal</label>
-            <select id="contact_channel" name="contact_channel" required>
-              <option value="">Bitte waehlen</option>
-              <option value="telefon">Telefon</option>
-              <option value="email">E-Mail</option>
-              <option value="whatsapp_optin">WhatsApp Opt-in</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="contact_value">Telefon oder E-Mail</label>
-            <input id="contact_value" name="contact_value" required>
-          </div>
-          <div class="field">
-            <label for="callback_window">Rueckrufzeit</label>
-            <select id="callback_window" name="callback_window">
-              <option value="">Optional</option>
-              <option value="vormittag">Vormittag</option>
-              <option value="mittag">Mittag</option>
-              <option value="nachmittag">Nachmittag</option>
-              <option value="abend">Abend</option>
-            </select>
-          </div>
-          <div class="field full">
-            <label for="needs_summary">Worum geht es?</label>
-            <textarea id="needs_summary" name="needs_summary" placeholder="Zum Beispiel: Implantatkosten, fehlende Zaehne, bestehende Zahnversicherung, Preisfrage ..." required></textarea>
-          </div>
-        </div>
-
-        <div class="check">
-          <input id="consent_capture" name="consent_capture" type="checkbox" value="yes" required>
-          <label for="consent_capture">Ich willige ein, dass meine Angaben zur Kontaktaufnahme und Angebotsvorbereitung verwendet werden.</label>
-        </div>
-        <div class="check">
-          <input id="privacy_acknowledged" name="privacy_acknowledged" type="checkbox" value="yes" required>
-          <label for="privacy_acknowledged">Ich habe die <a href="./privacy.html">Datenschutzrichtlinie</a> gelesen.</label>
-        </div>
-
-        <div id="error" class="error">Bitte Consent und Datenschutz bestaetigen.</div>
-        <div class="actions">
-          <button class="primary" type="submit">Anfrage sicher weiterfuehren</button>
-          <a class="button secondary" href="./index.html">Zur Startseite</a>
-        </div>
-      </form>
-
-      <p class="hint">
-        <span class="ok">Sicherheitsgrenze aktiv:</span> Keine Auto-DMs, kein Auto-Posting, kein unkontrolliertes Tracking.
+      <div class="cta-row">
+        <a class="button-primary" href="#anfrage">Jetzt kostenlos Möglichkeiten prüfen</a>
+        <a class="button-secondary" href="#themen">Häufige Themen ansehen</a>
+      </div>
+      <p class="platform-note">
+        Immer mehr Menschen informieren sich digital, bevor hohe Gesundheits- und Vorsorgekosten entstehen.
       </p>
-    </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Früh prüfen statt spät teuer zahlen</h2>
+      <p class="section-copy">
+        Viele Menschen zahlen jedes Jahr tausende Euro selbst, weil sie sich zu spät mit Vorsorge beschäftigen.
+      </p>
+      <p class="section-copy" style="margin-top:12px;">
+        Ein Implantat, eine Zahnspange oder längere Krankenhauskosten können schnell zur finanziellen Belastung werden.
+      </p>
+      <div class="cta-row" style="margin-top:22px;">
+        <a class="button-primary" href="#anfrage">Jetzt kostenlos Möglichkeiten prüfen</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Moderne Themen für unterschiedliche Lebenssituationen</h2>
+      <div class="premium-grid">
+        <article class="premium-card">
+          <span class="premium-icon">👶</span>
+          <h3>Kinder &amp; Zahnspange</h3>
+          <p>Eltern wollen früh wissen, welche Kosten bei Zahnspangen oder kieferorthopädischen Themen entstehen können.</p>
+        </article>
+        <article class="premium-card">
+          <span class="premium-icon">🦷</span>
+          <h3>Zahn &amp; Implantate</h3>
+          <p>Implantate, Zahnersatz und hochwertige Versorgung können schnell teuer werden, wenn der Schutz zu spät geprüft wird.</p>
+        </article>
+        <article class="premium-card">
+          <span class="premium-icon">👩</span>
+          <h3>Familie &amp; Gesundheit</h3>
+          <p>Familien brauchen klare Orientierung, wenn mehrere Gesundheits- und Vorsorgethemen gleichzeitig zusammenkommen.</p>
+        </article>
+        <article class="premium-card">
+          <span class="premium-icon">👨</span>
+          <h3>Schutz &amp; Zukunft</h3>
+          <p>Singles und junge Erwachsene wollen heute digital vergleichen, bevor aus kleinen Themen große Kosten werden.</p>
+        </article>
+        <article class="premium-card">
+          <span class="premium-icon">🏥</span>
+          <h3>Krankenhaus &amp; Gesundheitskosten</h3>
+          <p>Krankenhausaufenthalte, Zusatzkosten und Versorgungslücken treffen viele Menschen unvorbereitet.</p>
+        </article>
+        <article class="premium-card">
+          <span class="premium-icon">👴</span>
+          <h3>Vorsorge im Alter</h3>
+          <p>Im späteren Leben wird guter Schutz oft besonders wichtig, wenn Kosten planbar bleiben sollen.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="signal-panel">
+        <div class="signal-card">
+          <h2 class="section-title" style="font-size:1.9rem;">Warum Menschen früh digital prüfen</h2>
+          <p class="section-copy">
+            Wer sich rechtzeitig informiert, gewinnt einen klareren Blick auf mögliche Kosten, Optionen und nächste Schritte.
+          </p>
+          <p class="section-copy" style="margin-top:12px;">
+            NEXOVA Vorsorgeschutz ist bewusst modern und transparent aufgebaut: sichere Anfrage, persönliche Analyse und ein klarer Freigabeprozess statt aggressiver Funnel-Mechanik.
+          </p>
+          <div class="assurance-grid">
+            <div class="assurance-item">DSGVO-konforme Anfrage</div>
+            <div class="assurance-item">Sichere Datenverarbeitung</div>
+            <div class="assurance-item">Keine Spam-Nachrichten</div>
+            <div class="assurance-item">Keine automatischen Vertragsabschlüsse</div>
+            <div class="assurance-item">Persönliche Analyse</div>
+          </div>
+        </div>
+        <aside class="topics-card" id="themen">
+          <h2 class="section-title" style="font-size:1.65rem;">Häufige Themen</h2>
+          <div class="topics-list">
+            <div class="topic-pill">Implantatkosten</div>
+            <div class="topic-pill">Zahnspange Kinder</div>
+            <div class="topic-pill">Krankenhauskosten</div>
+            <div class="topic-pill">PKV</div>
+            <div class="topic-pill">Vorsorge</div>
+            <div class="topic-pill">Gesundheitskosten</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="anfrage">
+      <div class="form-card">
+        <h2 class="section-title">Jetzt kostenlos Möglichkeiten prüfen</h2>
+        <p class="section-copy">
+          Die Anfrage bleibt bewusst einfach: kurz schildern, worum es geht, Kontaktweg angeben und sicher absenden.
+        </p>
+
+        <form id="leadForm" action="./kontakt-danke.html" method="get" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="first_name">Vorname</label>
+              <input id="first_name" name="first_name" type="text" placeholder="Vorname" required>
+            </div>
+            <div class="field">
+              <label for="contact_channel">Telefon ODER WhatsApp ODER E-Mail</label>
+              <select id="contact_channel" name="contact_channel" required>
+                <option value="">Bitte Kontaktweg wählen</option>
+                <option value="telefon">Telefon</option>
+                <option value="whatsapp_optin">WhatsApp</option>
+                <option value="email">E-Mail</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="contact_value">Kontaktdaten</label>
+              <input id="contact_value" name="contact_value" type="text" placeholder="Telefonnummer oder E-Mail-Adresse" required>
+            </div>
+            <div class="field full">
+              <label for="needs_summary">Worum geht es?</label>
+              <textarea id="needs_summary" name="needs_summary" placeholder="Zum Beispiel: Zahnspange für mein Kind, Implantatkosten, Krankenhauskosten, PKV oder allgemeine Vorsorgefrage." required></textarea>
+            </div>
+          </div>
+
+          <div class="checks">
+            <div class="check">
+              <input id="consent_capture" name="consent_capture" type="checkbox" value="yes" required>
+              <label for="consent_capture">Ich willige ein, dass meine Angaben zur Kontaktaufnahme und zur persönlichen Analyse verwendet werden.</label>
+            </div>
+            <div class="check">
+              <input id="privacy_acknowledged" name="privacy_acknowledged" type="checkbox" value="yes" required>
+              <label for="privacy_acknowledged">Ich habe die <a href="./privacy.html">Datenschutzrichtlinie</a> gelesen und akzeptiere die sichere Verarbeitung meiner Anfrage.</label>
+            </div>
+          </div>
+
+          <div id="formError" class="error">Bitte Vorname, Kontaktweg, Kontaktdaten, Anliegen sowie Consent und Datenschutz bestätigen.</div>
+
+          <div class="cta-row" style="margin-top:18px;">
+            <button class="button-primary" type="submit">Jetzt kostenlos Möglichkeiten prüfen</button>
+            <a class="button-secondary" href="./index.html">Zur Plattform</a>
+          </div>
+        </form>
+
+        <p class="footer-note">
+          Keine automatischen Vertragsabschlüsse. Keine Auto-DMs. Keine Auto-Posts. Keine unkontrollierte Datenweitergabe.
+        </p>
+        <div class="footer-links">
+          <a href="./privacy.html">Datenschutz</a>
+          <a href="./terms.html">Nutzungsbedingungen</a>
+        </div>
+      </div>
+    </section>
   </main>
+
   <script>
-    const form = document.getElementById('leadForm');
-    const error = document.getElementById('error');
-    form.addEventListener('submit', function (event) {
-      const consent = document.getElementById('consent_capture').checked;
-      const privacy = document.getElementById('privacy_acknowledged').checked;
-      if (!consent || !privacy) {
+    const form = document.getElementById("leadForm");
+    const error = document.getElementById("formError");
+
+    form.addEventListener("submit", function (event) {
+      const requiredFieldIds = ["first_name", "contact_channel", "contact_value", "needs_summary"];
+      const requiredFieldsOk = requiredFieldIds.every((id) => {
+        const element = document.getElementById(id);
+        return element && String(element.value || "").trim().length > 0;
+      });
+      const consent = document.getElementById("consent_capture").checked;
+      const privacy = document.getElementById("privacy_acknowledged").checked;
+
+      if (!requiredFieldsOk || !consent || !privacy) {
         event.preventDefault();
-        error.style.display = 'block';
+        error.style.display = "block";
+        error.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      } else {
+        error.style.display = "none";
       }
     });
   </script>
